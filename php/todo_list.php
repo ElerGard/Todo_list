@@ -13,6 +13,7 @@ if ($_POST != null) {
     echo saveAllTodo($_POST, $mysqli);
 }
 
+//TODO - change error messages(success => "error messages")
 function saveAllTodo($data, $mysql) {
     if ($data == null) {
         return json_encode(array('success' => 0));
@@ -33,25 +34,25 @@ function saveAllTodo($data, $mysql) {
     if ($data['todos'] == []) {
         return json_encode(array('success' => 5));
     }
-    $i = 0;
     $sql = "DELETE FROM todos WHERE author='" . $data['author'] . "'";
 
     if (!$mysql->query($sql) === TRUE) {
         echo "Error deleting record: " . $mysql->error;
     }
     foreach($data['todos'] as $todo) {
-        
-        $sql  = "Insert into todos (author, index_todo_in_list, title, checkbox) Value ('" . $data['author'] . "', " . $todo['id'] . ", '" . $todo['title'] . "', " . $todo['checkbox'] . ");";
+    
 
-        if (!$mysql->query($sql) === TRUE) {
-            return json_encode(array('success' => 0, 'todo' => $data['author'] . "', '" . $todo['id'] . "', '" . $todo['title'] . "', '" . $todo['checkbox']));
-        }
-        $i++; 
+    //TODO - change prepare statements
+    $sql  = "INSERT INTO todos (author, index_todo_in_list, title, checkbox) Value ('" . $data['author'] . "', " . $todo['id'] . ", '" . $todo['title'] . "', " . $todo['checkbox'] . ");";
+
+    if (!$mysql->query($sql) === TRUE) {
+        return json_encode(array('success' => 0, 'todo' => $data['author'] . "', '" . $todo['id'] . "', '" . $todo['title'] . "', '" . $todo['checkbox']));
     }
-    return json_encode(array('success' => $i));
+    }
+    return json_encode(array('success' => 1));
 
 }
-
+//TODO - change error messages(success => "error messages")
 function getAllTodo($data, $mysql) {
 
     if ($data == null) {
@@ -63,7 +64,8 @@ function getAllTodo($data, $mysql) {
     if ($data['author'] == null) {
         return json_encode(array('success' => 2));
     }
-
+    
+    //TODO - change prepare statements
     $sql = "SELECT index_todo_in_list, title, checkbox from todos WHERE author = '" . $data['author'] . "'";
     $todos = [];
     $result = $mysql->query($sql);
@@ -74,12 +76,11 @@ function getAllTodo($data, $mysql) {
                 "title" => $row['title'],
                 "checkb0x" => $row['checkbox']
             ];
-
             $out[] = $todos;
         }
-      } else {
-        return json_encode(array('success' => 3));
-      }
+    } else {
+        return json_encode(array('success' => 1, 'todos' => $todos));
+    }
 
     return json_encode(array('success' => 1, 'todos' => $out)); 
 }

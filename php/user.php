@@ -13,6 +13,8 @@ if ($_POST != null) {
     echo createUser($_POST, $mysqli);
 }
 
+//TODO - change error messages(success => "error messages")
+
 function createUser($data, $mysql)
 {
     $user = "";
@@ -39,6 +41,7 @@ function createUser($data, $mysql)
 
     }
 
+    //TODO - change prepare statements
     $sql = "SELECT login from User WHERE login = '" . $data['username'] . "'";
 
     $stmt = $mysql->prepare($sql);
@@ -53,6 +56,7 @@ function createUser($data, $mysql)
         
     }
 
+    //TODO - change prepare statements
     $sql = "INSERT Into User(login, password) VALUE ('" . $data['username'] . "','" . $data['password'] . "');";
 
     if ($mysql->query($sql) === TRUE) {
@@ -61,6 +65,8 @@ function createUser($data, $mysql)
         return json_encode(array('success' => 0));
     }
 }
+
+//TODO - change error messages(success => "error messages")
 
 function login($data, $mysql)
 {
@@ -83,6 +89,7 @@ function login($data, $mysql)
         return json_encode(array('success' => 0));
     }
 
+    //TODO - change prepare statements
     $sql = "SELECT * from User WHERE login = '" . $data['username'] . "'AND password = '" . $data['password'] . "'";
 
     $stmt = $mysql->prepare($sql);

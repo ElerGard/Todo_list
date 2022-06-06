@@ -107,8 +107,6 @@ const updateLocalStorage = () => {
 
 if (user == 'guest') {
 	listName.innerText = "Guest";
-	
-
 } else {
 	listName.innerText = user;
 	$.ajax({
@@ -119,14 +117,12 @@ if (user == 'guest') {
 			var jsonData = JSON.parse(response); 
 
 			if (jsonData.success == "1") {
-				new_todos = jsonData.todos;
+				todos = jsonData.todos;
 				updateLocalStorage();
 				updateTodoList();
-				alert('Download completed');
+				//alert('Download completed');
 			} else {
-				if (todos.length == 0) {
-					alert('Download failed. Please fill todo list and save it or again later');
-				}
+				alert('Download failed. Please fill todo list and save it or again later');
 			}
 	   }
    });
