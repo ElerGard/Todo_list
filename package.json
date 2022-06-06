@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "mysql": "^2.18.1",
+    "todomvc-app-css": "^2.0.0",
+    "todomvc-common": "^1.0.0"
+  }
+}
