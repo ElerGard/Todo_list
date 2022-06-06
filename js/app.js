@@ -29,10 +29,10 @@ if (user != 'guest') {
 
 const updateCompletedTodo = (count) => {
 	todo_count.innerText = `${count} item left`;
-	if (notCompletedTodo <= todos.length) {
-		clearAll.classList['hidden'] = '';
+	if (notCompletedTodo < todos.length) {
+		clearAll.className = 'clear-completed';
 	} else {
-		clearAll.className += 'hidden';
+		clearAll.className += ' hidden';
 	}
 }
 
